@@ -4,6 +4,7 @@ using System.Text;
 using RestSharpClient.DataModels;
 using RestSharpClient.Helpers;
 using Newtonsoft.Json;
+using RestSharp;
 
 [assembly: Parallelize(Workers = 10, Scope = ExecutionScope.MethodLevel)]
 namespace RestSharpClient.Tests
@@ -100,7 +101,9 @@ namespace RestSharpClient.Tests
         [TestMethod]
         public async Task RandomBooking()
         {
-           
+            var getReponse = await BookingHelpers.GetBooking(RestClient, 21938941);
+            var retrievedBookingData = getReponse.Data;
+            Assert.AreEqual(HttpStatusCode.NotFound, getReponse.StatusCode, "Id is Found");
         }
     }
 }

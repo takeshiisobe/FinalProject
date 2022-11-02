@@ -17,7 +17,8 @@ namespace RestSharpClient.Resources
         public static string GetURL(string endpoint) => $"{baseURL}{endpoint}";
 
         public static Uri GetUri(string endpoint) => new Uri(GetURL(endpoint));
+        public static string GetBookingId(long bookingid) => $"{baseURL}/booking/{bookingid}";
 
- 
+
     }
 }
