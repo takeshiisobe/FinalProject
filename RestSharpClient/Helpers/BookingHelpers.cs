@@ -36,7 +36,7 @@ namespace RestSharpClient.Helpers
             #endregion
         }
 
-        public static async Task<RestResponse<BookingID>> UpdateBooking(RestClient restClient, long id, Booking objectModel)
+        public static async Task<RestResponse<Booking>> UpdateBooking(RestClient restClient, long id, Booking objectModel)
         {
             restClient = new RestClient();
             var token = await CreateToken(restClient);
@@ -46,7 +46,7 @@ namespace RestSharpClient.Helpers
 
             #region Put Method
             var putRequest = new RestRequest(Endpoints.GetUri(Endpoints.BookingEndpoint) + "/" + id).AddJsonBody(objectModel);
-            return await restClient.ExecutePutAsync<BookingID>(putRequest);
+            return await restClient.ExecutePutAsync<Booking>(putRequest);
             #endregion
 
         }

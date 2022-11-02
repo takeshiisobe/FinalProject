@@ -48,16 +48,16 @@ namespace RestSharpClient.Tests
             var postCreatedBooking = postResponse.Data;
             Booking booking = new Booking()
             {
-                Firstname = "EmmanUpdated",
-                Lastname = "GasparUpdated",
-                Totalprice = 111,
+                Firstname = "Takeshi222",
+                Lastname = "Takeshi2222",
+                Totalprice = 1998,
                 Depositpaid = true,
                 Bookingdates = new Bookingdates()
                 {
-                    Checkin = DateTime.Parse("2018-01-01"),
-                    Checkout = DateTime.Parse("2018-01-02")
+                    Checkin = DateTime.Parse("2022-11-02"),
+                    Checkout = DateTime.Parse("2022-11-03")
                 },
-                Additionalneeds = "Breakfast"
+                Additionalneeds = "Free Parking"
             };
             #endregion
 
