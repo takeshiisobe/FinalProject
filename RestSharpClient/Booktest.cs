@@ -16,7 +16,7 @@ namespace RestSharpClient.Tests
         [TestMethod]
         public async Task CreateBooking()
         {
-            #region Creating and retrieving new booking data
+            #region Arrange
             var postReponse = await BookingHelpers.CreateBooking(RestClient);
             var getReponse = await BookingHelpers.GetBooking(RestClient, postReponse.Data.Bookingid);
             var createdBookingData = postReponse.Data;
@@ -43,7 +43,7 @@ namespace RestSharpClient.Tests
         [TestMethod]
         public async Task UpdateBooking()
         {
-            #region create data and send put request
+            #region Arrange
             var postResponse = await BookingHelpers.CreateBooking(RestClient);
             var postCreatedBooking = postResponse.Data;
             Booking booking = new Booking()
@@ -84,7 +84,7 @@ namespace RestSharpClient.Tests
         [TestMethod]
         public async Task DeleteBooking()
         {
-            #region Creating a new booking data
+            #region Arrange
             var postResponse = await BookingHelpers.CreateBooking(RestClient);
             var postCreatedBooking = postResponse.Data;
             #endregion
@@ -100,24 +100,7 @@ namespace RestSharpClient.Tests
         [TestMethod]
         public async Task RandomBooking()
         {
-            #region create data and send put request
-            var InvalidCode = "9123124124";
-            var postResponse = await BookingHelpers.CreateBooking(RestClient);
-            var postCreatedBooking = postResponse.Data;
-            #endregion
-
-            #region Act
-            var getResponse = await BookingHelpers.GetBooking(RestClient, (long)Convert.ToDouble(InvalidCode));
-            #endregion
-
-            #region Assertion of 404 status code
-            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode, "Status code is not equal to 404");
-            #endregion
-
-            #region Cleanup
-            var deleteRequest = await BookingHelpers.DeleteBooking(RestClient, postCreatedBooking.Bookingid);
-            Assert.AreEqual(HttpStatusCode.Created, deleteRequest.StatusCode, "Status code is not equal to 201");
-            #endregion
+           
         }
     }
 }

@@ -12,20 +12,15 @@ namespace RestSharpClient.Tests
 {
     public class ApiBaseTest
     {
-        public Booktest RestClient { get; set; }
+        public RestClient RestClient { get; set; }
 
-      
+
 
         [TestInitialize]
         public void Initilize()
         {
-            RestClient = new Booktest();
-        }
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-
+            RestClient = new RestClient();
         }
     }
+
 }

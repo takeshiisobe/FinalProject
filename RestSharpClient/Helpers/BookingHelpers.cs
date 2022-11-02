@@ -9,23 +9,21 @@ using RestSharpClient.DataModels;
 using RestSharpClient.Tests.TestData;
 using Newtonsoft.Json;
 
-
-
 namespace RestSharpClient.Helpers
 {
     public class BookingHelpers
     {
-        public static async Task<string> CreateToken(RestClient restClient)
+        
+     
+        public static async Task<RestResponse<BookingID>> CreateBooking(RestClient restClient)
         {
             restClient = new RestClient();
             restClient.AddDefaultHeader("Accept", "application/json");
 
-            #region Post Request
-            var postRequest = new RestRequest("https://restful-booker.herokuapp.com/auth").AddJsonBody(TokenData.userTokenDetails());
-            var postResponse = await restClient.ExecutePostAsync<Token1>(postRequest);
+            #region Post Method
+            var postRequest = new RestRequest(Endpoints.GetURL(Endpoints.BookingEndpoint)).AddJsonBody(BookingData.CreateBooking());
+            return await restClient.ExecutePostAsync<BookingID>(postRequest);
             #endregion
-
-            return postResponse.Data.Token;
         }
         public static async Task<RestResponse<Booking>> GetBooking(RestClient restClient, long id)
         {
@@ -37,18 +35,8 @@ namespace RestSharpClient.Helpers
             return await restClient.ExecuteGetAsync<Booking>(getRequest);
             #endregion
         }
-        public static async Task<RestResponse<Booking>> CreateBooking(RestClient restClient)
-        {
-            restClient = new RestClient();
-            restClient.AddDefaultHeader("Accept", "application/json");
 
-            #region Post Method
-            var postRequest = new RestRequest(Endpoints.GetURL(Endpoints.BookingEndpoint)).AddJsonBody(BookingData.CreateBooking());
-            return await restClient.ExecutePostAsync<Booking>(postRequest);
-            #endregion
-        }
-
-        public static async Task<RestResponse<Booking>> UpdateBooking(RestClient restClient, long id, Booking objectModel)
+        public static async Task<RestResponse<BookingID>> UpdateBooking(RestClient restClient, long id, Booking objectModel)
         {
             restClient = new RestClient();
             var token = await CreateToken(restClient);
@@ -58,7 +46,7 @@ namespace RestSharpClient.Helpers
 
             #region Put Method
             var putRequest = new RestRequest(Endpoints.GetUri(Endpoints.BookingEndpoint) + "/" + id).AddJsonBody(objectModel);
-            return await restClient.ExecutePutAsync<Booking>(putRequest);
+            return await restClient.ExecutePutAsync<BookingID>(putRequest);
             #endregion
 
         }
@@ -76,7 +64,19 @@ namespace RestSharpClient.Helpers
             #endregion
 
         }
-        
+        public static async Task<string> CreateToken(RestClient restClient)
+        {
+            restClient = new RestClient();
+            restClient.AddDefaultHeader("Accept", "application/json");
 
+            #region Post Request
+            var postRequest = new RestRequest("https://restful-booker.herokuapp.com/auth").AddJsonBody(TokenData.userTokenDetails());
+            var postResponse = await restClient.ExecutePostAsync<Token1>(postRequest);
+            #endregion
+
+            return postResponse.Data.Token;
+        }
+
+        
     }
 }
